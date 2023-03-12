@@ -1,4 +1,4 @@
-import { EyeIcon, PencilAltIcon } from '@heroicons/react/solid';
+import { EyeIcon, PencilAltIcon, UserIcon } from '@heroicons/react/solid';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -8,6 +8,7 @@ import { filterProductsStatsAction, GetProductsStats } from '../../actions/produ
 import ViewOrdersModal from '../Modals/ViewOrderModal';
 import { Doughnut } from 'react-chartjs-2';
 import { Chart, registerables } from 'chart.js';
+import AddDigitalSaleModal from '../Modals/AddDigitalSales';
 
 Chart.register(...registerables);
 
@@ -20,6 +21,7 @@ const Transactions = () => {
     salesman,
     orderStatus,
     totalTransactions,
+    totalDigitalSales,
     totalProfit,
     totalSales,
     chartStats,
@@ -32,6 +34,7 @@ const Transactions = () => {
     orderStatus: state.orders.orderStatus,
     totalTransactions: state.orders.totalTransactions,
     totalSales: state.orders.totalSales,
+    totalDigitalSales: state.orders.totalDigitalSales,
     totalProfit: state.orders.totalProfit,
     chartStats: state.orders.chartStats,
     stores: state.stores,
@@ -51,6 +54,7 @@ const Transactions = () => {
   const navigate = useNavigate();
   const [ordersFilter, setOrdersFilter] = useState(initialFilters);
   const [isOpen, setIsOpen] = useState(false);
+  const [openSales, setOpenSales] = useState(false);
   const [ordersData, setOrdersData] = useState(null);
   const [ordersPagination, setOrdersPagination] = useState({ perPage: 10, page: 1, keyword: '' });
   useEffect(() => {
@@ -235,7 +239,12 @@ const Transactions = () => {
           </div>
         </div>
       </div>
-
+      <div className='ml-2 mt-4'>
+        <button className='flex align-middle btn-green' onClick={() => setOpenSales(true)}>
+          <UserIcon className='mr-2 h-6' />
+          Add Digital Sales
+        </button>
+      </div>
       <div className='my-5 grid xl:grid-cols-3 sm:grid-cols-1 gap-4'>
         <div className='border p-3'>
           <div className='flex justify-between mt-3'>
@@ -360,6 +369,12 @@ const Transactions = () => {
                 <div className='text-2xl text-green-900 flex flex-col h-full items-center justify-center'>
                   <h1>Sales</h1>
                   <h1>Rs {Math.round(totalSales)}</h1>
+                </div>
+              </div>
+              <div className='w-56 h-40 bg-green-100 rounded-md'>
+                <div className='text-2xl text-green-900 flex flex-col h-full items-center justify-center'>
+                  <h1>Digital Sales</h1>
+                  <h1>Rs {Math.round(totalDigitalSales)}</h1>
                 </div>
               </div>
               <div className='w-56 h-40 bg-yellow-100 rounded-md'>
@@ -513,6 +528,7 @@ const Transactions = () => {
         </div>
       </div>
       <ViewOrdersModal isOpen={isOpen} setIsOpen={setIsOpen} orderDetails={ordersData} />
+      <AddDigitalSaleModal isOpen={openSales} setIsOpen={setOpenSales} />
     </div>
   );
 };

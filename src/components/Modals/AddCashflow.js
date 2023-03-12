@@ -8,12 +8,15 @@ import { CreateCashflow, UpdateCashflow } from '../../actions/cashflow.action';
 const AddCashFlowModal = ({ isOpen, setIsOpen, cashflowData }) => {
   const initState = {
     customer: '',
+    vendor: '',
+    details: '',
     type: '',
     total: '',
     received: '',
   };
-  const { customers } = useSelector((state) => ({
+  const { customers, vendors } = useSelector((state) => ({
     customers: state.customers.allCustomers,
+    vendors: state.vendors,
   }));
   const dispatch = useDispatch();
   const [cashflowDetails, setCashflowDetails] = useState(initState);
@@ -50,6 +53,7 @@ const AddCashFlowModal = ({ isOpen, setIsOpen, cashflowData }) => {
     }
   };
   const customerOptions = customers.map((e) => ({ label: e.name, value: e._id }));
+  const vendorOptions = vendors.map((e) => ({ label: e.name, value: e._id }));
 
   const handleCustomerChange = (e) => {
     if (e?.value) {
@@ -89,6 +93,27 @@ const AddCashFlowModal = ({ isOpen, setIsOpen, cashflowData }) => {
                 }
                 isClearable
                 onChange={handleCustomerChange}
+              />
+            </div>
+            <div className='flex my-2'>
+              <Select
+                options={vendorOptions}
+                placeholder='Select Vendor...'
+                value={
+                  cashflowDetails.vendor !== '' ? customerOptions.find((e) => e.value === cashflowDetails.vendor) : null
+                }
+                isClearable
+                onChange={handleCustomerChange}
+              />
+            </div>
+            <div className='flex flex-col my-2'>
+              <label className='mb-1 text-gray-500 font-bold'>Details</label>
+              <textarea
+                className='input-field'
+                type=''
+                name='details'
+                value={cashflowDetails.details}
+                onChange={handleCashflowFields}
               />
             </div>
             <div className='flex flex-col my-2'>

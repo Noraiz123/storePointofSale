@@ -33,7 +33,8 @@ const initialState = {
     currentPage: 1,
     totalPages: null,
     noOfCashflow: 0,
-    totalCashflow: 0,
+    totalPayable: 0,
+    totalReceivable: 0,
     cashflowStats: [],
   },
   orders: {
@@ -45,6 +46,7 @@ const initialState = {
     currentPage: 1,
     totalPages: null,
     totalTransactions: 0,
+    totalDigitalSales: 0,
     totalSales: 0,
     totalProfit: 0,
     chartStats: [],

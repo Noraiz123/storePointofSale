@@ -91,6 +91,7 @@ const Products = () => {
           orderQuantity: 1,
           variated,
           price: variated ? item.singlePrice : item.price,
+          retailPrice: variated ? item.unitRetailPrice : item.retailPrice,
           name: variated ? `${item.name} single` : item.name,
         })
       );

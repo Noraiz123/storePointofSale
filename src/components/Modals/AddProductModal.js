@@ -23,6 +23,7 @@ const AddProducts = ({ isOpen, setIsOpen, productData }) => {
     color: '',
     price: '',
     retailPrice: '',
+    unitRetailPrice: '',
     singlePrice: '',
   };
   const [productDetails, setProductDetails] = useState(initState);
@@ -240,7 +241,7 @@ const AddProducts = ({ isOpen, setIsOpen, productData }) => {
               </div>
             </div>
             <div className='flex flex-col my-2'>
-              <label className='mb-1 text-gray-500 font-bold'>Price</label>
+              <label className='mb-1 text-gray-500 font-bold'>Sale Price</label>
               <input
                 className='input-field'
                 name='price'
@@ -250,7 +251,7 @@ const AddProducts = ({ isOpen, setIsOpen, productData }) => {
               />
             </div>
             <div className='flex flex-col my-2'>
-              <label className='mb-1 text-gray-500 font-bold'>Single Price</label>
+              <label className='mb-1 text-gray-500 font-bold'>Sale price of unit</label>
               <input
                 className='input-field'
                 name='singlePrice'
@@ -266,6 +267,16 @@ const AddProducts = ({ isOpen, setIsOpen, productData }) => {
                 name='retailPrice'
                 type='number'
                 value={productDetails.retailPrice}
+                onChange={handleAddProduct}
+              />
+            </div>
+            <div className='flex flex-col my-2'>
+              <label className='mb-1 text-gray-500 font-bold'>Unit Purchase Price</label>
+              <input
+                className='input-field'
+                name='unitRetailPrice'
+                type='number'
+                value={productDetails.unitRetailPrice}
                 onChange={handleAddProduct}
               />
             </div>

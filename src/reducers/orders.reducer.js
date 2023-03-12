@@ -4,8 +4,16 @@ import { actionTypes } from '../constants/actionTypes';
 export default (state = initialState.orders, action) => {
   switch (action.type) {
     case actionTypes.getOrders: {
-      const { orders, currentPage, totalPages, totalTransactions, totalSales, totalProfit, chartStats } =
-        action.payload;
+      const {
+        orders,
+        currentPage,
+        totalPages,
+        totalTransactions,
+        totalDigitalSales,
+        totalSales,
+        totalProfit,
+        chartStats,
+      } = action.payload;
 
       return {
         ...state,
@@ -14,6 +22,7 @@ export default (state = initialState.orders, action) => {
         totalPages,
         totalTransactions,
         totalSales,
+        totalDigitalSales,
         totalProfit,
         chartStats,
       };

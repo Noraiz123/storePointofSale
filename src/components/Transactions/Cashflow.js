@@ -1,28 +1,40 @@
-import { EyeIcon, PencilAltIcon, TrashIcon } from '@heroicons/react/solid';
+import { PencilAltIcon, TrashIcon } from '@heroicons/react/solid';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { DeleteCashflow, GetCashflow } from '../../actions/cashflow.action';
 import AddCashFlowModal from '../Modals/AddCashflow';
-import AddExpenseModal from '../Modals/AddExpenseModal';
 
 const Cashflow = () => {
   const dispatch = useDispatch();
-  const { cashflow, customers, totalPages, totalCashflow, currentPage, noOfCashflow, cashflowStats, stores } =
-    useSelector((state) => ({
-      cashflow: state.cashflow.cashflow,
-      customers: state.customers.allCustomers,
-      totalPages: state.cashflow.totalPages,
-      totalCashflow: state.cashflow.totalCashflow,
-      currentPage: state.cashflow.currentPage,
-      noOfCashflow: state.cashflow.noOfCashflow,
-      cashflowStats: state.cashflow.cashflowStats,
-      stores: state.stores,
-    }));
+  const {
+    cashflow,
+    customers,
+    totalPages,
+    totalReceivable,
+    totalPayable,
+    currentPage,
+    vendors,
+    noOfCashflow,
+    cashflowStats,
+    stores,
+  } = useSelector((state) => ({
+    cashflow: state.cashflow.cashflow,
+    customers: state.customers.allCustomers,
+    vendors: state.vendors,
+    totalPages: state.cashflow.totalPages,
+    totalReceivable: state.cashflow.totalReceivable,
+    totalPayable: state.cashflow.totalPayable,
+    currentPage: state.cashflow.currentPage,
+    noOfCashflow: state.cashflow.noOfCashflow,
+    cashflowStats: state.cashflow.cashflowStats,
+    stores: state.stores,
+  }));
   const initialFilters = {
     created_at_gteq: '',
     created_at_lteq: '',
     store: '',
     customer: '',
+    vendor: '',
     type: '',
   };
 
@@ -101,6 +113,19 @@ const Cashflow = () => {
           </div>
         </div>
         <div className={`flex flex-col`}>
+          <label className='mb-1 text-gray-500 font-bold'>Vendor</label>
+          <div className='flex'>
+            <select className='input-field' name='vendor' onChange={handleCashFlowFilterChange}>
+              <option selected value=''>
+                Select vendor...
+              </option>
+              {vendors.map((e) => (
+                <option value={e._id}>{e.name}</option>
+              ))}
+            </select>
+          </div>
+        </div>
+        <div className={`flex flex-col`}>
           <label className='mb-1 text-gray-500 font-bold'>Date</label>
           <div className='flex border bg-white rounded-lg p-2 space-x-3'>
             <input type='date' className='' name='created_at_gteq' onChange={handleCashFlowFilterChange} />
@@ -162,8 +187,14 @@ const Cashflow = () => {
             <div className='space-y-3 text-sm font-medium sm:grid sm:grid-cols-2 xl:block my-3'>
               <div className='w-56 h-40 bg-green-100 rounded-md'>
                 <div className='text-2xl text-green-900 flex flex-col h-full items-center justify-center'>
-                  <h1>Total Cashflow</h1>
-                  <h1>Rs {Math.round(totalCashflow)}</h1>
+                  <h1>Total Receivable</h1>
+                  <h1>Rs {Math.round(totalReceivable)}</h1>
+                </div>
+              </div>
+              <div className='w-56 h-40 bg-red-100 rounded-md'>
+                <div className='text-2xl text-red-900 flex flex-col h-full items-center justify-center'>
+                  <h1>Total Payable</h1>
+                  <h1>Rs {Math.round(totalPayable)}</h1>
                 </div>
               </div>
               <div className='w-56 h-40 bg-yellow-100 rounded-md'>

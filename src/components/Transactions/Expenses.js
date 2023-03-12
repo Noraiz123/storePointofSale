@@ -22,6 +22,7 @@ const Expenses = () => {
     created_at_gteq: '',
     created_at_lteq: '',
     store: '',
+    type: '',
   };
 
   const user = JSON.parse(localStorage.getItem('user'));
@@ -81,6 +82,17 @@ const Expenses = () => {
             </select>
           </div>
         )}
+        <div className='flex flex-col my-2'>
+          <label className='mb-1 text-gray-500 font-bold'>Expense Type</label>
+          <select className='input-field' name='type' onChange={handleExpenseFilterChange}>
+            <option selected value=''>
+              Select Expense type...
+            </option>
+            <option value='prepaid'>Prepaid Expense</option>
+            <option value='accrued'>Accrued Expense</option>
+            <option value='actual'>Actual Expense</option>
+          </select>
+        </div>
         <div className={`flex flex-col`}>
           <label className='mb-1 text-gray-500 font-bold'>Date</label>
           <div className='flex border bg-white rounded-lg p-2 space-x-3'>
@@ -157,6 +169,7 @@ const Expenses = () => {
                     <thead>
                       <tr>
                         <th>Name</th>
+                        <th>type</th>
                         <th>Date</th>
                         <th>Amount</th>
                         <th>Actions</th>
@@ -167,6 +180,7 @@ const Expenses = () => {
                         expenses.map((e) => (
                           <tr key={e._id}>
                             <td className=''>{e.name || 'N/A'}</td>
+                            <td className=''>{e.type || 'N/A'}</td>
                             <td>{new Date(e.createdAt).toDateString()}</td>
                             <td className=''>Rs {e.amount}</td>
                             <td>
