@@ -47,6 +47,7 @@ const VendorsModal = ({ isOpen, setIsOpen }) => {
                 <thead className='sticky top-0 z-10 bg-white'>
                   <tr>
                     <th>Name</th>
+                    <th>Phone no</th>
                     <th>Description</th>
                     <th>Action</th>
                   </tr>
@@ -55,6 +56,7 @@ const VendorsModal = ({ isOpen, setIsOpen }) => {
                   {vendors.map((e) => (
                     <tr key={e._id}>
                       <td>{e.name}</td>
+                      <td>{e.phoneNo || 'N/A'}</td>
                       <td>{e.description ? e.description : 'N/A'}</td>
                       <td>
                         {(user?.role === 'superAdmin' || user?.role === 'admin') && (

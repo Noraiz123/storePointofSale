@@ -224,8 +224,8 @@ const Cashflow = () => {
                       {cashflow &&
                         cashflow?.map((e) => (
                           <tr key={e._id}>
-                            <td className=''>{e.customer.name || 'N/A'}</td>
-                            <td className=''>{e.customer.phoneNo}</td>
+                            <td className=''>{e?.customer?.name || e?.vendor?.name || 'N/A'}</td>
+                            <td className=''>{e?.customer?.phoneNo || e?.vendor?.phoneNo || 'N/A'}</td>
                             <td className=''>{e.type}</td>
                             <td className=''>Rs {e.total}</td>
                             <td className=''>Rs {e.received}</td>

@@ -64,6 +64,15 @@ const AddCashFlowModal = ({ isOpen, setIsOpen, cashflowData }) => {
     }
   };
 
+  const handleVendorChange = (e) => {
+    if (e?.value) {
+      setCashflowDetails((pre) => ({
+        ...pre,
+        vendor: e.value,
+      }));
+    }
+  };
+
   return (
     <div>
       <ModalTemplate isOpen={isOpen} setIsOpen={setIsOpen}>
@@ -86,11 +95,7 @@ const AddCashFlowModal = ({ isOpen, setIsOpen, cashflowData }) => {
               <Select
                 options={customerOptions}
                 placeholder='Select Customer...'
-                value={
-                  cashflowDetails.customer !== ''
-                    ? customerOptions.find((e) => e.value === cashflowDetails.customer)
-                    : null
-                }
+                value={customerOptions.find((e) => e.value === cashflowDetails.customer)}
                 isClearable
                 onChange={handleCustomerChange}
               />
@@ -99,11 +104,9 @@ const AddCashFlowModal = ({ isOpen, setIsOpen, cashflowData }) => {
               <Select
                 options={vendorOptions}
                 placeholder='Select Vendor...'
-                value={
-                  cashflowDetails.vendor !== '' ? customerOptions.find((e) => e.value === cashflowDetails.vendor) : null
-                }
+                value={vendorOptions.find((e) => e.value === cashflowDetails.vendor)}
                 isClearable
-                onChange={handleCustomerChange}
+                onChange={handleVendorChange}
               />
             </div>
             <div className='flex flex-col my-2'>

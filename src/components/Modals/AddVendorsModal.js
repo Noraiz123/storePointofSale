@@ -7,6 +7,7 @@ import { CreateVendor, UpdateVendor } from '../../actions/vendors.action';
 const AddVendorsModal = ({ isOpen, setIsOpen, vendorData }) => {
   const initState = {
     name: '',
+    phoneNo: '',
     description: '',
   };
   const dispatch = useDispatch();
@@ -28,14 +29,14 @@ const AddVendorsModal = ({ isOpen, setIsOpen, vendorData }) => {
 
   const handleCreateCustomer = () => {
     if (vendorData) {
-      const { id, name, description } = vendorDetails;
-      dispatch(UpdateVendor(id, { name, description })).then(() => {
+      const { id, name, phoneNo, description } = vendorDetails;
+      dispatch(UpdateVendor(id, { name, description, phoneNo })).then(() => {
         setIsOpen(false);
         setVendorDetails(initState);
       });
     } else {
-      const { name, description } = vendorDetails;
-      dispatch(CreateVendor({ name, description })).then(() => {
+      const { name, phoneNo, description } = vendorDetails;
+      dispatch(CreateVendor({ name, phoneNo, description })).then(() => {
         setIsOpen(false);
         setVendorDetails(initState);
       });
@@ -58,6 +59,16 @@ const AddVendorsModal = ({ isOpen, setIsOpen, vendorData }) => {
                 name='name'
                 onChange={handleVendorFields}
                 value={vendorDetails.name}
+              />
+            </div>
+            <div className='flex flex-col my-2'>
+              <label className='mb-1 text-gray-500 font-bold'>Phone no</label>
+              <input
+                className='input-field'
+                type='text'
+                name='phoneNo'
+                onChange={handleVendorFields}
+                value={vendorDetails.phoneNo}
               />
             </div>
             <div className='flex flex-col my-2'>
