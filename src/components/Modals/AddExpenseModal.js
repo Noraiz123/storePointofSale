@@ -45,7 +45,7 @@ const AddExpenseModal = ({ isOpen, setIsOpen, expenseData }) => {
           <Dialog.Title as='h3' className='text-lg font-medium leading-6 text-gray-900'>
             {expenseData ? 'Update' : 'Add'} Expense
           </Dialog.Title>
-          <div className='mt-10'>
+          <div className='mt-10 h-50v overflow-y-auto'>
             <div className='flex flex-col my-2'>
               <label className='mb-1 text-gray-500 font-bold'>Expense Type</label>
               <select className='input-field' name='type' value={expenseDetails.type} onChange={handleStore}>

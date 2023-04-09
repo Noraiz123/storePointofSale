@@ -80,7 +80,7 @@ const AddCashFlowModal = ({ isOpen, setIsOpen, cashflowData }) => {
           <Dialog.Title as='h3' className='text-lg font-medium leading-6 text-gray-900 border-b pb-2'>
             {cashflowData ? 'Update' : 'Add'} Cash Flow
           </Dialog.Title>
-          <div className='mt-10'>
+          <div className='mt-10 h-50v overflow-y-auto'>
             <div className='flex flex-col my-2'>
               <label className='mb-1 text-gray-500 font-bold'>Cash Type</label>
               <select className='input-field' name='type' value={cashflowDetails.type} onChange={handleCashflowFields}>
