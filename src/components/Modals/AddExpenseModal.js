@@ -5,7 +5,7 @@ import ModalTemplate from '.';
 import { CreateExpense, UpdateExpense } from '../../actions/expenses.actions';
 
 const AddExpenseModal = ({ isOpen, setIsOpen, expenseData }) => {
-  const initState = { name: '', amount: '', details: '', type: '' };
+  const initState = { name: '', amount: '', createdAt: new Date(), details: '', type: '' };
   const [expenseDetails, setExpenseDetails] = useState(initState);
   const dispatch = useDispatch();
 
@@ -24,10 +24,10 @@ const AddExpenseModal = ({ isOpen, setIsOpen, expenseData }) => {
   }, [expenseData]);
 
   const submitExpense = () => {
-    const { name, amount, details, type } = expenseDetails;
+    const { name, amount, details, type, createdAt } = expenseDetails;
     if (expenseData?._id) {
       const { _id } = expenseDetails;
-      dispatch(UpdateExpense(_id, { name, amount, details, type })).then(() => {
+      dispatch(UpdateExpense(_id, { name, amount, details, type, createdAt })).then(() => {
         setIsOpen(false);
         setExpenseDetails(initState);
       });
@@ -56,6 +56,16 @@ const AddExpenseModal = ({ isOpen, setIsOpen, expenseData }) => {
                 <option value='accrued'>Accrued Expense</option>
                 <option value='actual'>Actual Expense</option>
               </select>
+            </div>
+            <div className='flex flex-col my-2'>
+              <label className='mb-1 text-gray-500 font-bold'>Expense Date</label>
+              <input
+                className='input-field'
+                type='date'
+                name='createdAt'
+                onChange={handleStore}
+                value={new Date(expenseDetails.createdAt).toISOString().split('T')[0]}
+              />
             </div>
             <div className='flex flex-col my-2'>
               <label className='mb-1 text-gray-500 font-bold'>Name</label>

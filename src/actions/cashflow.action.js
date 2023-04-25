@@ -36,6 +36,8 @@ export const CreateCashflow = (data) => async (dispatch) => {
     dispatch(createCashflowAction(res.data));
     toast.success('Cashflow Created Successfully');
   }
+
+  return res
 };
 
 export const GetCashflow = (data, filter) => async (dispatch) => {

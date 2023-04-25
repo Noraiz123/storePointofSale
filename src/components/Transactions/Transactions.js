@@ -401,6 +401,8 @@ const Transactions = () => {
                         <th>Date</th>
                         <th>Total</th>
                         <th>Paid</th>
+                        <th>Receivable</th>
+                        <th>Payable</th>
                         <th>Change</th>
                         <th>Method</th>
                         <th>Status</th>
@@ -418,6 +420,14 @@ const Transactions = () => {
                             <td className=''>{new Date(e.createdAt).toDateString()}</td>
                             <td className=''>Rs: {Math.round(e.total)}</td>
                             <td className=''> Rs: {Math.round(e?.paid) || Math.round(e.total)}</td>
+                            <td className=''>
+                              {' '}
+                              Rs: {e?.cashflow?.type === 'Receivable' ? e?.cashflow?.remaining : 'N/A'}
+                            </td>
+                            <td className=''>
+                              {' '}
+                              Rs: {e?.cashflow?.type === 'Payable' ? e?.cashflow?.remaining : 'N/A'}
+                            </td>
                             <td>Rs: {e?.change ? e.change : 0}</td>
                             <td>Cash</td>
                             <td>

@@ -142,7 +142,7 @@ const CreateOrder = () => {
     return num.toString().padStart(6, '0');
   };
 
-  const handleOrderCreate = async (status, change, paid) => {
+  const handleOrderCreate = async (status, change, paid, cashflowId) => {
     if (orderStatus === 'UPDATE_ORDER') {
       dispatch(
         UpdateOrder(
@@ -163,7 +163,7 @@ const CreateOrder = () => {
                 previousQuantity: e.previousQuantity,
                 previousPaid: e.previousPaid,
                 variated: e.variated,
-                bagQuantity: e?.bagQuantity? e.bagQuantity : null,
+                bagQuantity: e?.bagQuantity ? e.bagQuantity : null,
                 paidPrice:
                   e.currentPrice && e.currentDiscount && previousDiscountedPrice !== currentDiscountedPrice
                     ? Math.round(
@@ -176,6 +176,7 @@ const CreateOrder = () => {
                 delete: e?.delete ? true : undefined,
               };
             }),
+            cashflow: cashflowId,
             total: Math.round(totalPrice),
             totalRetailPrice,
           },
@@ -202,13 +203,14 @@ const CreateOrder = () => {
             orderItems: currentOrder.map((e) => ({
               id: e?.orderItemId ? e.orderItemId : undefined,
               product: e._id,
-              bagQuantity: e?.bagQuantity? e.bagQuantity : null,
+              bagQuantity: e?.bagQuantity ? e.bagQuantity : null,
               quantity: e.orderQuantity,
               variated: e.variated,
               currentDiscount: e.discount,
               paidPrice: Math.round((e.price - (e.price * e.discount) / 100) * e.orderQuantity),
               currentPrice: e.price,
             })),
+            cashflow: cashflowId,
             total: Math.round(totalPrice),
             totalRetailPrice,
           })
@@ -239,7 +241,7 @@ const CreateOrder = () => {
                 createdAt: new Date(),
                 orderItems: currentOrder.map((e) => ({
                   id: e?.orderItemId ? e.orderItemId : undefined,
-                  bagQuantity: e?.bagQuantity? e.bagQuantity : null,
+                  bagQuantity: e?.bagQuantity ? e.bagQuantity : null,
                   product: e._id,
                   quantity: e.orderQuantity,
                   variated: e.variated,
@@ -264,7 +266,7 @@ const CreateOrder = () => {
                 orderItems: currentOrder.map((e) => ({
                   id: e?.orderItemId ? e.orderItemId : undefined,
                   product: e._id,
-                  bagQuantity: e?.bagQuantity? e.bagQuantity : null,
+                  bagQuantity: e?.bagQuantity ? e.bagQuantity : null,
                   variated: e.variated,
                   quantity: e.orderQuantity,
                   currentDiscount: e.discount,
@@ -285,10 +287,11 @@ const CreateOrder = () => {
     }
   };
 
-  const handleOrderConfirmation = (change, paid, cashflow) => {
+  const handleOrderConfirmation = async (change, paid, cashflow) => {
+    let cashflowId = null;
     if (cashflow) {
       if (paid < totalPrice) {
-        dispatch(
+        await dispatch(
           CreateCashflow({
             customer: currentCustomer._id,
             remaining: totalPrice - paid,
@@ -296,9 +299,9 @@ const CreateOrder = () => {
             total: totalPrice,
             received: paid,
           })
-        );
+        ).then((res) => (cashflowId = res.data._id));
       } else if (paid > totalPrice) {
-        dispatch(
+        await dispatch(
           CreateCashflow({
             customer: currentCustomer._id,
             remaining: totalPrice - paid,
@@ -306,10 +309,11 @@ const CreateOrder = () => {
             total: totalPrice,
             received: paid,
           })
-        );
+        ).then((res) => cashflowId = res.data._id);
       }
     }
-    handleOrderCreate('paid', change, paid);
+
+    handleOrderCreate('paid', change, paid, cashflowId);
   };
   const [openCustomerModal, setOpenCustomerModal] = useState(false);
   const [openUserModal, setOpenUserModal] = useState(false);

@@ -26,6 +26,7 @@ const AddProducts = ({ isOpen, setIsOpen, productData }) => {
     unitRetailPrice: '',
     singlePrice: '',
   };
+  const [isLoading, setIsLoading] = useState(false);
   const [productDetails, setProductDetails] = useState(initState);
   const user = JSON.parse(localStorage.getItem('user'));
 
@@ -106,18 +107,25 @@ const AddProducts = ({ isOpen, setIsOpen, productData }) => {
   }, [dispatch]);
 
   const createProductHandler = () => {
+    setIsLoading(true);
     if (productData?._id) {
-      dispatch(EditProduct(productData._id, productDetails)).then(() => {
-        setIsOpen(false);
-        setProductDetails(initState);
-        dispatch(GetAllProducts());
-      });
+      dispatch(EditProduct(productData._id, productDetails))
+        .then(() => {
+          setIsOpen(false);
+          setProductDetails(initState);
+          dispatch(GetAllProducts());
+          setIsLoading(false);
+        })
+        .catch(() => setIsLoading(false));
     } else {
-      dispatch(CreateProduct(productDetails)).then((res) => {
-        setIsOpen(false);
-        setProductDetails(initState);
-        dispatch(GetAllProducts());
-      });
+      dispatch(CreateProduct(productDetails))
+        .then((res) => {
+          setIsOpen(false);
+          setProductDetails(initState);
+          dispatch(GetAllProducts());
+          setIsLoading(false);
+        })
+        .catch(() => setIsLoading(false));
     }
   };
 
@@ -310,7 +318,7 @@ const AddProducts = ({ isOpen, setIsOpen, productData }) => {
             </div>
           </div>
           <div className='mt-4'>
-            <button type='button' className={btnStyle('blue')} onClick={createProductHandler}>
+            <button type='button' disabled={isLoading} className={btnStyle('blue')} onClick={createProductHandler}>
               Submit
             </button>
             <button type='button' className={btnStyle('red')} onClick={() => setIsOpen(false)}>
