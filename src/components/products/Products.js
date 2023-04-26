@@ -181,6 +181,7 @@ const Products = () => {
                   className='h-56 mx-auto object-contain'
                 />
                 <p className='text-center text-gray-400 font-bold'>{e.name}</p>
+                <p className='text-center text-gray-400 font-bold'>{e.category?.name || 'N/A'}</p>
               </div>
               <div className='flex flex-col mt-3 h-full justify-end mx-auto'>
                 <p className='text-center text-yellow-600 font-extrabold'>Available: {Math.round(e.quantity)}</p>

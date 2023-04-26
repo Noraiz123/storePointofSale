@@ -35,7 +35,6 @@ const ViewOrdersModal = ({ isOpen, setIsOpen, orderDetails }) => {
     return vendor ? vendor.name : 'N/A';
   };
 
-
   return (
     <div>
       <ModalTemplate isOpen={isOpen} setIsOpen={setIsOpen}>
@@ -62,13 +61,13 @@ const ViewOrdersModal = ({ isOpen, setIsOpen, orderDetails }) => {
                 {orderDetails &&
                   orderDetails.map((e, index) => (
                     <tr key={e._id}>
-                      <td></td>
+                      <td>{e.product.barcode}</td>
                       <td>{index + 1}</td>
                       <td>{e.product.name}</td>
                       <td>{e.currentPrice}</td>
                       <td>{e.quantity}</td>
-                      <td>{getCategory(e.category)}</td>
-                      <td>{getVendor(e.vendor)}</td>
+                      <td>{getCategory(e.product.category)}</td>
+                      <td>{getVendor(e.product.vendor)}</td>
                       <td>{e.paidPrice}</td>
                       <td>
                         <button className='btn-sm-yellow ml-3' onClick={() => OrderUpdateHandler(e)}>

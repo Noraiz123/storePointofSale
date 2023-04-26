@@ -279,6 +279,7 @@ const Transactions = () => {
                     <th>Name</th>
                     <th>Sold</th>
                     <th>Available</th>
+                    <th>Available stock Amount</th>
                     <th>Sales</th>
                   </tr>
                 </thead>
@@ -289,6 +290,7 @@ const Transactions = () => {
                         <td className=''>{e.product.name}</td>
                         <td className=''>{e.sold}</td>
                         <td className=''>{e.available}</td>
+                        <td className=''>Rs {e.availableStockPrice}</td>
                         <td className=''>Rs {e.sales}</td>
                       </tr>
                     ))}
