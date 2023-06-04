@@ -1,6 +1,7 @@
 export const actionTypes = {
   getProducts: 'GET_PRODUCTS',
   getTags: 'GET_TAGS',
+  getStatement: 'GET_STATEMENT',
   getProduct: 'GET_PRODUCT',
   updateProductsQuantity: 'UPDATE_PRODUCT_QUANTITY',
   getAllProduct: 'GET_ALL_PRODUCT',

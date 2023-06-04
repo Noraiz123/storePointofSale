@@ -28,6 +28,13 @@ const initialState = {
     totalExpense: 0,
     expenseStats: [],
   },
+  statement: {
+    sales: 0,
+    costOfGoodsSold: 0,
+    grossProfit: 0,
+    netProfit: 0,
+    expenses: 0,
+  },
   cashFlow: {
     cashflow: [],
     currentPage: 1,
