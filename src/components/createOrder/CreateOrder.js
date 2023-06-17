@@ -99,7 +99,10 @@ const CreateOrder = () => {
           );
         }
         return (
-          pre + (Number(next.price) - (Number(next.price) * Number(next.discount)) / 100) * Number(next.orderQuantity)
+          pre +
+          (Number(next?.currentPrice || next.price) -
+            (Number(next?.currentPrice || next.price) * Number(next.discount)) / 100) *
+            Number(next.orderQuantity)
         );
       }, 0);
   const totalRetailPrice =
@@ -309,7 +312,7 @@ const CreateOrder = () => {
             total: totalPrice,
             received: paid,
           })
-        ).then((res) => cashflowId = res.data._id);
+        ).then((res) => (cashflowId = res.data._id));
       }
     }
 
@@ -549,7 +552,7 @@ const CreateOrder = () => {
         </div>
 
         <div className='w-full bg-green-100 p-3 text-center rounded-sm'>
-          <h1 className='text-green-900 font-extrabold'>Grand Total : Rs {Math.round(totalPrice)}</h1>
+          <h1 className='text-green-900 font-extrabold'>Grand Total : Rs {totalPrice}</h1>
         </div>
         <div className='flex justify-between my-4'>
           <button className='btn-blue' onClick={() => setOpenInvoiceModal(true)} disabled={currentOrder.length === 0}>

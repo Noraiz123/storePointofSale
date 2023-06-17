@@ -184,7 +184,7 @@ const Products = () => {
                 <p className='text-center text-gray-400 font-bold'>{e.category?.name || 'N/A'}</p>
               </div>
               <div className='flex flex-col mt-3 h-full justify-end mx-auto'>
-                <p className='text-center text-yellow-600 font-extrabold'>Available: {Math.round(e.quantity)}</p>
+                <p className='text-center text-yellow-600 font-extrabold'>Available: {e.quantity}</p>
                 <p className='text-center text-green-400 font-mono font-extrabold'>{formatCurrency(e.price)}</p>
                 {}
                 {e.discount > 0 && (

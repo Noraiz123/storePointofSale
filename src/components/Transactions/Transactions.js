@@ -126,6 +126,7 @@ const Transactions = () => {
       ...e.product,
       uuid: Math.random(),
       currentDiscount: e.currentDiscount,
+      variated: e.variated,
       currentPrice: e.currentPrice,
       orderQuantity: e.quantity,
       previousQuantity: e.quantity,
